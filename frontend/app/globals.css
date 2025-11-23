@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+ 
+@layer base {
+  :root {
+    /* Light mode - using softer, modern colors */
+    --background: 0 0% 100%;
+    --foreground: 222.2 47.4% 11.2%;
+
+    --card: 222.2 47.4% 11.2%;
+    --card-foreground: 210 40% 98%;
+    --card-border: 142 70% 50%;
+    --card-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 47.4% 11.2%;
+ 
+    /* Primary - Blue from apartments dashboard */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+ 
+    /* Secondary - Light gray */
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+ 
+    /* Muted - Soft gray */
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+ 
+    /* Accent - Purple from apartments dashboard */
+    --accent: 280 100% 70%;
+    --accent-foreground: 0 0% 100%;
+ 
+    /* Destructive - Rose from apartments dashboard */
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border and input - Light gray */
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 217 91% 60%;
+
+    /* Success - Emerald from apartments dashboard */
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning - Amber/Orange */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Info - Blue */
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 100%;
+
+    /* Additional colors from apartments dashboard */
+    --blue-400: 217 91% 60%;
+    --blue-500: 217 91% 50%;
+    --purple-400: 280 100% 70%;
+    --purple-500: 280 100% 60%;
+    --emerald-400: 142 70% 50%;
+    --emerald-500: 142 70% 45%;
+    --rose-400: 0 70% 60%;
+    --rose-500: 0 70% 55%;
+ 
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    /* Dark mode - matching apartments dashboard theme (gray-900 background) */
+    --background: 222.2 47.4% 11.2%; /* gray-900 */
+    --foreground: 210 40% 98%; /* gray-50 */
+ 
+    /* Card - gray-800 background */
+    --card: 217.2 32.6% 17.5%; /* gray-800 */
+    --card-foreground: 210 40% 98%; /* gray-50 */
+    
+    --card-border: 217.2 32.6% 25%; /* gray-700 */
+    --card-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.4);
+ 
+    --popover: 217.2 32.6% 17.5%; /* gray-800 */
+    --popover-foreground: 210 40% 98%;
+ 
+    /* Primary - Blue-400 from apartments dashboard */
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+ 
+    /* Secondary - gray-700 */
+    --secondary: 217.2 32.6% 25%;
+    --secondary-foreground: 210 40% 98%;
+ 
+    /* Muted - gray-800/700 mix */
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%; /* gray-400 */
+ 
+    /* Accent - Purple-400 from apartments dashboard */
+    --accent: 280 100% 70%;
+    --accent-foreground: 0 0% 100%;
+ 
+    /* Destructive - Rose-500 from apartments dashboard */
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+ 
+    /* Border and input - gray-700 */
+    --border: 217.2 32.6% 25%; /* gray-700 */
+    --input: 217.2 32.6% 25%; /* gray-700 */
+    --ring: 217 91% 60%; /* Blue-400 */
+
+    /* Success - Emerald-500 from apartments dashboard */
+    --success: 142 70% 45%;
+    --success-foreground: 0 0% 100%;
+
+    /* Warning - Amber */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Info - Blue-400 */
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 100%;
+
+    /* Additional colors from apartments dashboard - same as light mode */
+    --blue-400: 217 91% 60%;
+    --blue-500: 217 91% 50%;
+    --purple-400: 280 100% 70%;
+    --purple-500: 280 100% 60%;
+    --emerald-400: 142 70% 50%;
+    --emerald-500: 142 70% 45%;
+    --rose-400: 0 70% 60%;
+    --rose-500: 0 70% 55%;
+  }
+}
+ 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
