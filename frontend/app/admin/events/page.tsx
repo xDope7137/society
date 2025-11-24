@@ -57,12 +57,13 @@ export default function EventsPage() {
       }
       
       const response = await eventsAPI.getEvents(params);
-      setEvents(response.data.results || response.data);
-    } catch (error) {
+      const eventsData = response.data.results || response.data || [];
+      setEvents(Array.isArray(eventsData) ? eventsData : []);
+    } catch (error: any) {
       console.error('Error loading events:', error);
       toast({
         title: 'Error',
-        description: 'Failed to load events',
+        description: error.response?.data?.detail || 'Failed to load events',
         variant: 'destructive',
       });
     } finally {
@@ -70,9 +71,9 @@ export default function EventsPage() {
     }
   };
 
-  const filteredEvents = events.filter(event =>
-    event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    event.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  const filteredEvents = (events || []).filter(event =>
+    event.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    event.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     (event.location && event.location.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 

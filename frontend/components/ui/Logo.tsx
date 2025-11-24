@@ -1,28 +1,38 @@
 "use client";
 
-import { motion } from "framer-motion";
+import Image from "next/image";
 
-export default function Logo({ className = "", size = "md" }: { className?: string; size?: "sm" | "md" | "lg" }) {
+export default function Logo({ className = "", size = "lg" }: { className?: string; size?: "sm" | "md" | "lg" }) {
     const sizes = {
-        sm: "w-6 h-6 text-xs",
-        md: "w-8 h-8 text-lg",
-        lg: "w-12 h-12 text-2xl",
+        sm: { width: 48, height: 24 },
+        md: { width: 64, height: 32 },
+        lg: { width: 96, height: 48 },
     };
 
-    const textSizes = {
-        sm: "text-lg",
-        md: "text-xl",
-        lg: "text-3xl",
-    };
+    const { width, height } = sizes[size];
 
     return (
-        <div className={`flex items-center gap-2 ${className}`}>
-            <div className={`${sizes[size]} rounded-lg bg-gradient-to-br from-green-400 to-violet-600 flex items-center justify-center transform rotate-3 hover:rotate-0 transition-transform duration-300 shadow-lg shadow-green-500/20`}>
-                <span className="text-black font-bold font-sans">V</span>
+        <div className={`flex items-center justify-center ${className}`}>
+            <div
+                style={{
+                    width,
+                    height,
+                    overflow: "hidden",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    borderRadius: "0.25rem",
+                }}
+            >
+                <Image
+                    src="/vortiq-retina.png"
+                    alt="Vortiq Logo"
+                    width={width}
+                    height={height}
+                    priority
+                    className="object-contain object-center"
+                />
             </div>
-            <span className={`${textSizes[size]} font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-violet-500 tracking-tight`}>
-                Vortiq
-            </span>
         </div>
     );
 }

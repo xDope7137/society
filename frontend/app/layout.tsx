@@ -11,6 +11,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Vortiq - Next Gen Society Management",
   description: "Experience the future of community living with Vortiq, the intelligent society management platform.",
+  icons: {
+    icon: "/vortiq-retina.png",
+  },
 };
 
 export default function RootLayout({

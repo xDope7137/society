@@ -40,12 +40,13 @@ export default function AlertsPage() {
       }
       
       const response = await alertsAPI.getAlerts(params);
-      setAlerts(response.data.results || response.data);
-    } catch (error) {
+      const alertsData = response.data.results || response.data || [];
+      setAlerts(Array.isArray(alertsData) ? alertsData : []);
+    } catch (error: any) {
       console.error('Error loading alerts:', error);
       toast({
         title: 'Error',
-        description: 'Failed to load alerts',
+        description: error.response?.data?.detail || 'Failed to load alerts',
         variant: 'destructive',
       });
     } finally {
@@ -70,7 +71,7 @@ export default function AlertsPage() {
     }
   };
 
-  const filteredAlerts = alerts
+  const filteredAlerts = (alerts || [])
     .filter(alert =>
       (alert.title?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
       (alert.message?.toLowerCase() || '').includes(searchTerm.toLowerCase())
@@ -181,11 +182,11 @@ export default function AlertsPage() {
                 <div className="flex items-start justify-between">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-2 flex-wrap">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap ${alertTypeColors[alert.alert_type as keyof typeof alertTypeColors]}`}>
-                        {alert.alert_type.replace('_', ' ')}
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap ${alertTypeColors[alert.alert_type as keyof typeof alertTypeColors] || 'bg-muted text-muted-foreground'}`}>
+                        {alert.alert_type?.replace('_', ' ') || 'OTHER'}
                       </span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap ${severityColors[alert.severity as keyof typeof severityColors]}`}>
-                        {alert.severity}
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap ${severityColors[alert.severity as keyof typeof severityColors] || 'bg-muted text-muted-foreground'}`}>
+                        {alert.severity || 'LOW'}
                       </span>
                       {alert.is_active && (
                         <span className="px-2 py-1 bg-emerald-500/10 text-emerald-500 rounded-full text-xs font-medium whitespace-nowrap">

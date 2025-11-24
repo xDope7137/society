@@ -37,14 +37,18 @@ export default function UsersPage() {
         societyAPI.getSocieties(),
       ]);
 
-      setUsers(usersRes.data);
-      setFilteredUsers(usersRes.data);
-      setSocieties(societiesRes.data.results || societiesRes.data);
-    } catch (error) {
+      const usersData = usersRes.data.results || usersRes.data || [];
+      const usersArray = Array.isArray(usersData) ? usersData : [];
+      setUsers(usersArray);
+      setFilteredUsers(usersArray);
+      
+      const societiesData = societiesRes.data.results || societiesRes.data || [];
+      setSocieties(Array.isArray(societiesData) ? societiesData : []);
+    } catch (error: any) {
       console.error('Error loading data:', error);
       toast({
         title: 'Error',
-        description: 'Failed to load users data',
+        description: error.response?.data?.detail || 'Failed to load users data',
         variant: 'destructive',
       });
     } finally {

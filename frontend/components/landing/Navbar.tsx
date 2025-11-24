@@ -25,10 +25,10 @@ export default function Navbar() {
                     <Link href="#features" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors hover:scale-105 transform">
                         Features
                     </Link>
-                    <Link href="#about" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors hover:scale-105 transform">
+                    <Link href="/about" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors hover:scale-105 transform">
                         About
                     </Link>
-                    <Link href="#contact" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors hover:scale-105 transform">
+                    <Link href="/contact" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors hover:scale-105 transform">
                         Contact
                     </Link>
                 </div>

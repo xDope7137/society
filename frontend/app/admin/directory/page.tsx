@@ -20,12 +20,13 @@ export default function DirectoryPage() {
   const loadDirectory = async () => {
     try {
       const response = await societyAPI.getDirectory();
-      setResidents(response.data);
-    } catch (error) {
+      const residentsData = response.data.results || response.data || [];
+      setResidents(Array.isArray(residentsData) ? residentsData : []);
+    } catch (error: any) {
       console.error('Error loading directory:', error);
       toast({
         title: 'Error',
-        description: 'Failed to load resident directory',
+        description: error.response?.data?.detail || 'Failed to load resident directory',
         variant: 'destructive',
       });
     } finally {
@@ -33,14 +34,14 @@ export default function DirectoryPage() {
     }
   };
 
-  const filteredResidents = residents.filter(resident => {
+  const filteredResidents = (residents || []).filter(resident => {
     const searchLower = searchTerm.toLowerCase();
     return (
-      resident.flat_number.toLowerCase().includes(searchLower) ||
+      resident.flat_number?.toLowerCase().includes(searchLower) ||
       (resident.current_resident &&
-        (resident.current_resident.first_name.toLowerCase().includes(searchLower) ||
-          resident.current_resident.last_name.toLowerCase().includes(searchLower) ||
-          resident.current_resident.email.toLowerCase().includes(searchLower)))
+        (resident.current_resident.first_name?.toLowerCase().includes(searchLower) ||
+          resident.current_resident.last_name?.toLowerCase().includes(searchLower) ||
+          resident.current_resident.email?.toLowerCase().includes(searchLower)))
     );
   });
 
@@ -102,7 +103,7 @@ export default function DirectoryPage() {
                       }
                     </CardTitle>
                     <p className="text-sm text-muted-foreground capitalize">
-                      {resident.occupancy_status.toLowerCase().replace('_', ' ')}
+                      {resident.occupancy_status?.toLowerCase().replace('_', ' ') || 'Unknown'}
                     </p>
                   </div>
                 </div>

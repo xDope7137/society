@@ -390,7 +390,9 @@ export function getColorValue(color: string): string {
  * Get CSS variable name for a color
  */
 export function getColorVariable(colorKey: keyof ThemeColors): string {
-  const variableMap: Record<keyof ThemeColors, string> = {
+  // Exclude admin and resident as they are objects, not simple color strings
+  type SimpleColorKey = Exclude<keyof ThemeColors, 'admin' | 'resident'>;
+  const variableMap: Record<SimpleColorKey, string> = {
     background: '--background',
     foreground: '--foreground',
     card: '--card',
@@ -418,7 +420,12 @@ export function getColorVariable(colorKey: keyof ThemeColors): string {
     infoForeground: '--info-foreground',
   };
   
-  return variableMap[colorKey] || '';
+  // Type guard to ensure we only access simple color keys
+  if (colorKey === 'admin' || colorKey === 'resident') {
+    return '';
+  }
+  
+  return variableMap[colorKey as SimpleColorKey] || '';
 }
 
 /**

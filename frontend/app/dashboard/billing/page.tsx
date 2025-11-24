@@ -125,7 +125,7 @@ export default function BillingPage() {
             <AlertCircle className="h-5 w-5 text-destructive" />
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-bold text-destructive">{stats.unpaid + stats.overdue || 0}</div>
+            <div className="text-3xl font-bold text-destructive">{(stats.unpaid || 0) + (stats.overdue || 0)}</div>
             <p className="text-xs text-muted-foreground mt-1">
               ₹{stats.total_pending?.toLocaleString() || '0'}
             </p>

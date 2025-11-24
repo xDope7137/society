@@ -57,12 +57,13 @@ export default function NoticesPage() {
       }
       
       const response = await noticesAPI.getNotices(params);
-      setNotices(response.data.results || response.data);
-    } catch (error) {
+      const noticesData = response.data.results || response.data || [];
+      setNotices(Array.isArray(noticesData) ? noticesData : []);
+    } catch (error: any) {
       console.error('Error loading notices:', error);
       toast({
         title: 'Error',
-        description: 'Failed to load notices',
+        description: error.response?.data?.detail || 'Failed to load notices',
         variant: 'destructive',
       });
     } finally {
@@ -70,9 +71,9 @@ export default function NoticesPage() {
     }
   };
 
-  const filteredNotices = notices.filter(notice =>
-    notice.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    notice.content.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredNotices = (notices || []).filter(notice =>
+    notice.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    notice.content?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const priorityColors = {
@@ -162,11 +163,11 @@ export default function NoticesPage() {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${priorityBadges[notice.priority as keyof typeof priorityBadges]}`}>
-                        {notice.priority}
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${priorityBadges[notice.priority as keyof typeof priorityBadges] || 'bg-muted text-muted-foreground'}`}>
+                        {notice.priority || 'MEDIUM'}
                       </span>
                       <span className="px-2 py-1 bg-secondary text-secondary-foreground rounded-full text-xs font-medium capitalize">
-                        {notice.category.toLowerCase()}
+                        {notice.category?.toLowerCase() || 'general'}
                       </span>
                     </div>
                     <CardTitle className="text-xl">{notice.title}</CardTitle>

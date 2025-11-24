@@ -57,7 +57,7 @@ class EmergencyAlertListSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = EmergencyAlert
-        fields = ['id', 'title', 'alert_type', 'severity', 'is_active', 
+        fields = ['id', 'title', 'message', 'alert_type', 'severity', 'is_active', 
                   'created_by_name', 'is_acknowledged', 'created_at', 'expires_at']
     
     def get_created_by_name(self, obj):

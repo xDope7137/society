@@ -33,11 +33,16 @@ export default function VisitorsPage() {
         societyAPI.getFlats(),
       ]);
 
-      setVisitors(visitorsRes.data.results || visitorsRes.data);
-      setActiveVisitors(activeRes.data);
-      setFlats(flatsRes.data.results || flatsRes.data);
-    } catch (error) {
+      setVisitors(visitorsRes.data.results || visitorsRes.data || []);
+      setActiveVisitors(Array.isArray(activeRes.data) ? activeRes.data : []);
+      setFlats(flatsRes.data.results || flatsRes.data || []);
+    } catch (error: any) {
       console.error('Error loading data:', error);
+      toast({
+        title: 'Error',
+        description: error.response?.data?.detail || 'Failed to load visitors data',
+        variant: 'destructive',
+      });
     } finally {
       setLoading(false);
     }
@@ -109,7 +114,7 @@ export default function VisitorsPage() {
                 <div key={visitor.id} className="flex items-center justify-between p-4 border border-border rounded-lg">
                   <div>
                     <h4 className="font-semibold">{visitor.name}</h4>
-                    <p className="text-sm text-muted-foreground">Flat: {visitor.flat_number}</p>
+                    <p className="text-sm text-muted-foreground">Flat: {visitor.flat_number || visitor.flat?.flat_number || 'N/A'}</p>
                     <p className="text-sm text-muted-foreground">Phone: {visitor.phone}</p>
                   </div>
                   <Button variant="outline" size="sm" onClick={() => handleCheckOut(visitor.id)}>
@@ -142,30 +147,38 @@ export default function VisitorsPage() {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {visitors.map((visitor) => (
-                <TableRow key={visitor.id}>
-                  <TableCell className="font-medium">{visitor.name}</TableCell>
-                  <TableCell>{visitor.flat_number}</TableCell>
-                  <TableCell>{visitor.phone}</TableCell>
-                  <TableCell className="capitalize">{visitor.purpose.toLowerCase().replace('_', ' ')}</TableCell>
-                  <TableCell>
-                    <span className={`px-2 py-1 rounded-full text-xs ${statusColors[visitor.status as keyof typeof statusColors]}`}>
-                      {visitor.status}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    {visitor.entry_time ? formatDate(visitor.entry_time) : '-'}
-                  </TableCell>
-                  <TableCell>
-                    {visitor.status === 'APPROVED' && (
-                      <Button size="sm" onClick={() => handleCheckIn(visitor.id)}>
-                        <LogIn className="h-4 w-4 mr-1" />
-                        Check In
-                      </Button>
-                    )}
+              {visitors.length === 0 ? (
+                <TableRow>
+                  <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
+                    No visitors found
                   </TableCell>
                 </TableRow>
-              ))}
+              ) : (
+                visitors.map((visitor) => (
+                  <TableRow key={visitor.id}>
+                    <TableCell className="font-medium">{visitor.name}</TableCell>
+                    <TableCell>{visitor.flat_number || visitor.flat?.flat_number || 'N/A'}</TableCell>
+                    <TableCell>{visitor.phone}</TableCell>
+                    <TableCell className="capitalize">{visitor.purpose?.toLowerCase().replace('_', ' ') || 'N/A'}</TableCell>
+                    <TableCell>
+                      <span className={`px-2 py-1 rounded-full text-xs ${statusColors[visitor.status as keyof typeof statusColors] || 'bg-muted text-muted-foreground'}`}>
+                        {visitor.status}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      {visitor.entry_time ? formatDate(visitor.entry_time) : '-'}
+                    </TableCell>
+                    <TableCell>
+                      {visitor.status === 'APPROVED' && (
+                        <Button size="sm" onClick={() => handleCheckIn(visitor.id)}>
+                          <LogIn className="h-4 w-4 mr-1" />
+                          Check In
+                        </Button>
+                      )}
+                    </TableCell>
+                  </TableRow>
+                ))
+              )}
             </TableBody>
           </Table>
         </CardContent>

@@ -41,9 +41,15 @@ export default function ComplaintsPage() {
       }
       
       const response = await complaintsAPI.getComplaints(params);
-      setComplaints(response.data.results || response.data);
-    } catch (error) {
+      const complaintsData = response.data.results || response.data || [];
+      setComplaints(Array.isArray(complaintsData) ? complaintsData : []);
+    } catch (error: any) {
       console.error('Error loading complaints:', error);
+      toast({
+        title: 'Error',
+        description: error.response?.data?.detail || 'Failed to load complaints',
+        variant: 'destructive',
+      });
     } finally {
       setLoading(false);
     }
@@ -164,14 +170,14 @@ export default function ComplaintsPage() {
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[complaint.status as keyof typeof statusColors]}`}>
-                        {complaint.status.replace('_', ' ')}
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[complaint.status as keyof typeof statusColors] || 'bg-muted text-muted-foreground'}`}>
+                        {complaint.status?.replace('_', ' ') || 'OPEN'}
                       </span>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${priorityColors[complaint.priority as keyof typeof priorityColors]}`}>
-                        {complaint.priority}
+                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${priorityColors[complaint.priority as keyof typeof priorityColors] || 'bg-muted text-muted-foreground'}`}>
+                        {complaint.priority || 'MEDIUM'}
                       </span>
                       <span className="px-2 py-1 bg-secondary text-secondary-foreground rounded-full text-xs font-medium capitalize">
-                        {complaint.category.toLowerCase()}
+                        {complaint.category?.toLowerCase() || 'other'}
                       </span>
                     </div>
                     <CardTitle className="text-xl">{complaint.title}</CardTitle>

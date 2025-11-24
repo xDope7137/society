@@ -50,6 +50,9 @@ export default function DashboardPage() {
         activeVisitors: visitorsRes.data.length,
         pendingComplaints: complaintsRes.data.open + complaintsRes.data.in_progress,
         unpaidBills: billsRes.data.unpaid + billsRes.data.overdue,
+        totalResidents: 0,
+        totalFlats: 0,
+        occupiedFlats: 0,
       });
     } catch (error) {
       console.error('Error loading dashboard data:', error);
