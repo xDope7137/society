@@ -1,140 +1,132 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
 @layer base {
   :root {
-    /* Light mode - using softer, modern colors */
+    /* Light mode - kept clean but with new brand colors */
     --background: 0 0% 100%;
-    --foreground: 222.2 47.4% 11.2%;
+    --foreground: 222.2 84% 4.9%;
 
-    --card: 222.2 47.4% 11.2%;
-    --card-foreground: 210 40% 98%;
-    --card-border: 142 70% 50%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --card-border: 220 13% 91%;
     --card-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
- 
+
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 47.4% 11.2%;
- 
-    /* Primary - Blue from apartments dashboard */
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
- 
-    /* Secondary - Light gray */
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
- 
-    /* Muted - Soft gray */
+    --popover-foreground: 222.2 84% 4.9%;
+
+    /* Primary - Neon Green */
+    --primary: 142 76% 36%;
+    /* Darker green for light mode readability */
+    --primary-foreground: 355.7 100% 97.3%;
+
+    /* Secondary - Violet */
+    --secondary: 262 83% 58%;
+    --secondary-foreground: 210 40% 98%;
+
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
- 
-    /* Accent - Purple from apartments dashboard */
-    --accent: 280 100% 70%;
-    --accent-foreground: 0 0% 100%;
- 
-    /* Destructive - Rose from apartments dashboard */
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 0 0% 100%;
 
-    /* Border and input - Light gray */
+    --accent: 262 83% 58%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 217 91% 60%;
+    --ring: 142 76% 36%;
 
-    /* Success - Emerald from apartments dashboard */
-    --success: 142 70% 45%;
-    --success-foreground: 0 0% 100%;
-
-    /* Warning - Amber/Orange */
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-
-    /* Info - Blue */
-    --info: 217 91% 60%;
-    --info-foreground: 0 0% 100%;
-
-    /* Additional colors from apartments dashboard */
-    --blue-400: 217 91% 60%;
-    --blue-500: 217 91% 50%;
-    --purple-400: 280 100% 70%;
-    --purple-500: 280 100% 60%;
-    --emerald-400: 142 70% 50%;
-    --emerald-500: 142 70% 45%;
-    --rose-400: 0 70% 60%;
-    --rose-500: 0 70% 55%;
- 
     --radius: 0.5rem;
   }
- 
+
   .dark {
-    /* Dark mode - matching apartments dashboard theme (gray-900 background) */
-    --background: 222.2 47.4% 11.2%; /* gray-900 */
-    --foreground: 210 40% 98%; /* gray-50 */
- 
-    /* Card - gray-800 background */
-    --card: 217.2 32.6% 17.5%; /* gray-800 */
-    --card-foreground: 210 40% 98%; /* gray-50 */
-    
-    --card-border: 217.2 32.6% 25%; /* gray-700 */
-    --card-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.4), 0 8px 10px -6px rgb(0 0 0 / 0.4);
- 
-    --popover: 217.2 32.6% 17.5%; /* gray-800 */
-    --popover-foreground: 210 40% 98%;
- 
-    /* Primary - Blue-400 from apartments dashboard */
-    --primary: 217 91% 60%;
-    --primary-foreground: 0 0% 100%;
- 
-    /* Secondary - gray-700 */
-    --secondary: 217.2 32.6% 25%;
-    --secondary-foreground: 210 40% 98%;
- 
-    /* Muted - gray-800/700 mix */
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%; /* gray-400 */
- 
-    /* Accent - Purple-400 from apartments dashboard */
-    --accent: 280 100% 70%;
-    --accent-foreground: 0 0% 100%;
- 
-    /* Destructive - Rose-500 from apartments dashboard */
-    --destructive: 0 70% 55%;
-    --destructive-foreground: 0 0% 100%;
- 
-    /* Border and input - gray-700 */
-    --border: 217.2 32.6% 25%; /* gray-700 */
-    --input: 217.2 32.6% 25%; /* gray-700 */
-    --ring: 217 91% 60%; /* Blue-400 */
+    /* Dark mode - Midnight & Neon Theme */
+    --background: 240 10% 3.9%;
+    /* Almost black */
+    --foreground: 0 0% 98%;
 
-    /* Success - Emerald-500 from apartments dashboard */
-    --success: 142 70% 45%;
-    --success-foreground: 0 0% 100%;
+    /* Card - Deep Slate */
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    /* Warning - Amber */
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
+    --card-border: 240 3.7% 15.9%;
+    --card-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.5), 0 8px 10px -6px rgb(0 0 0 / 0.5);
 
-    /* Info - Blue-400 */
-    --info: 217 91% 60%;
-    --info-foreground: 0 0% 100%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    /* Additional colors from apartments dashboard - same as light mode */
-    --blue-400: 217 91% 60%;
-    --blue-500: 217 91% 50%;
-    --purple-400: 280 100% 70%;
-    --purple-500: 280 100% 60%;
-    --emerald-400: 142 70% 50%;
-    --emerald-500: 142 70% 45%;
-    --rose-400: 0 70% 60%;
-    --rose-500: 0 70% 55%;
+    /* Primary - Neon Green */
+    --primary: 142 70% 50%;
+    --primary-foreground: 144.9 80.4% 10%;
+
+    /* Secondary - Violet */
+    --secondary: 263 70% 50%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    /* Accent - Violet/Purple */
+    --accent: 263 70% 50%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142 70% 50%;
+
+    /* Custom Colors */
+    --neon-green: 142 70% 50%;
+    --neon-violet: 263 70% 50%;
   }
 }
- 
+
 @layer base {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+
+  .glass-nav {
+    @apply bg-background/60 backdrop-blur-xl border border-white/10 shadow-lg;
+  }
+}
+
+@keyframes blob {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
   }
 }

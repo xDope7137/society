@@ -9,8 +9,8 @@ import { SettingsProvider } from "@/contexts/SettingsContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Society Management",
-  description: "Modern apartment society management system",
+  title: "Vortiq - Next Gen Society Management",
+  description: "Experience the future of community living with Vortiq, the intelligent society management platform.",
 };
 
 export default function RootLayout({
