@@ -7,6 +7,33 @@ echo   Starting Backend and Frontend Servers
 echo ========================================
 echo.
 
+REM Ask user for mode selection
+:mode_selection
+echo Please select the mode:
+echo   1. Development (dev)
+echo   2. Production (prod)
+echo.
+set /p MODE="Enter your choice (1 or 2): "
+
+if "%MODE%"=="1" (
+    set MODE_NAME=Development
+    set FRONTEND_CMD=dev
+    goto mode_selected
+) else if "%MODE%"=="2" (
+    set MODE_NAME=Production
+    set FRONTEND_CMD=start
+    goto mode_selected
+) else (
+    echo Invalid choice. Please enter 1 or 2.
+    echo.
+    goto mode_selection
+)
+
+:mode_selected
+echo.
+echo Selected mode: %MODE_NAME%
+echo.
+
 REM Check if Python is installed
 python --version >nul 2>&1
 if errorlevel 1 (
@@ -56,6 +83,20 @@ if not exist "node_modules" (
 ) else (
     echo Node.js dependencies are installed.
 )
+
+REM Build frontend for production mode
+if "%MODE%"=="2" (
+    echo.
+    echo Building frontend for production...
+    call npm run build
+    if errorlevel 1 (
+        echo ERROR: Failed to build frontend
+        cd ..
+        pause
+        exit /b 1
+    )
+    echo Frontend build completed.
+)
 cd ..
 
 echo [3/5] Checking and freeing ports 8000 and 3000...
@@ -74,12 +115,12 @@ timeout /t 2 /nobreak >nul
 
 echo [5/5] Starting Frontend Server (Next.js) on port 3000...
 cd frontend
-start /B cmd /c "npm run dev > ..\frontend.log 2>&1"
+start /B cmd /c "npm run %FRONTEND_CMD% > ..\frontend.log 2>&1"
 cd ..
 
 echo.
 echo ========================================
-echo   Servers are running in the background!
+echo   Servers are running in %MODE_NAME% mode!
 echo ========================================
 echo.
 echo Backend:  http://localhost:8000

@@ -19,7 +19,9 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-dev-key-change-in-producti
 PRODUCTION = os.getenv('ENVIRONMENT', '').lower() == 'production'
 DEBUG = os.getenv('DEBUG', 'False' if PRODUCTION else 'True') == 'True'
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,project.bhavikp.in,apiv2.bhavikp.in').split(',')
+# Allow localhost, specific hosts, and any *.bhavikp.in subdomain
+default_hosts = 'localhost,127.0.0.1,project.bhavikp.in,apiv2.bhavikp.in,.bhavikp.in'
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', default_hosts).split(',')
 
 # Application definition
 INSTALLED_APPS = [
@@ -179,10 +181,9 @@ SIMPLE_JWT = {
 }
 
 # CORS settings
-CORS_ALLOWED_ORIGINS = os.getenv(
-    'CORS_ALLOWED_ORIGINS',
-    'http://localhost:3000,http://127.0.0.1:3000,https://project.bhavikp.in'
-).split(',')
+# Allow localhost, specific hosts, and any *.bhavikp.in subdomain
+default_cors_origins = 'http://localhost:3000,http://127.0.0.1:3000,https://project.bhavikp.in'
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', default_cors_origins).split(',')
 
 # Also allow any origin in development if DEBUG is True
 if DEBUG:
@@ -195,6 +196,16 @@ if DEBUG:
         'http://127.0.0.1:3002',
     ]
     CORS_ALLOWED_ORIGINS.extend(additional_origins)
+
+# Allow any *.bhavikp.in subdomain using regex pattern
+# This allows any subdomain like vortiq.bhavikp.in, project.bhavikp.in, etc.
+CORS_ORIGIN_REGEX_WHITELIST = [
+    r'^https?://([a-zA-Z0-9-]+\.)?bhavikp\.in(:[0-9]+)?$',
+    r'^https?://localhost(:[0-9]+)?$',
+    r'^https?://127\.0\.0\.1(:[0-9]+)?$',
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_CREDENTIALS = True
 

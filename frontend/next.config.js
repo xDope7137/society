@@ -19,7 +19,21 @@ const nextConfig = {
   },
   
   images: {
-    domains: ['localhost', 'project.bhavikp.in', 'apiv2.bhavikp.in'],
+    // Support any *.bhavikp.in subdomain
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.bhavikp.in',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
   },
   
@@ -55,7 +69,7 @@ const nextConfig = {
           },
           {
             key: 'Content-Security-Policy',
-            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://apiv2.bhavikp.in;",
+            value: "default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://*.bhavikp.in http://localhost:* http://127.0.0.1:*;",
           },
         ],
       },
